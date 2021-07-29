@@ -13,6 +13,11 @@ on:
   release:
     types: [published]
 
+env:
+  CIBW_BEFORE_ALL: yum install -y libffi-devel
+  CIBW_CROSS_COMPILE_ARCHS_LINUX: aarch64
+  CIBW_SKIP: "cp27-* pp* pp27-* *i686* cp35-*"
+
 jobs:
   deploy:
 
@@ -32,3 +37,6 @@ jobs:
         git clone https://github.com/mpmkp2020/cibuildwheel
         cd cibuildwheel
         python setup.py install
+    - name: build wheel
+      run: python -m cibuildwheel --output-dir wheelhouse
+      

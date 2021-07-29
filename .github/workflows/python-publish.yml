@@ -10,8 +10,6 @@ name: Upload Python Package
 
 on:
   push:
-  release:
-    types: [published]
 
 env:
   CIBW_BEFORE_ALL: yum install -y libffi-devel
@@ -19,7 +17,7 @@ env:
   CIBW_SKIP: "cp27-* pp* pp27-* *i686* cp35-*"
 
 jobs:
-  deploy:
+  Build:
 
     runs-on: ubuntu-latest
 
@@ -39,4 +37,3 @@ jobs:
         python setup.py install
     - name: build wheel
       run: python -m cibuildwheel --output-dir wheelhouse
-      
